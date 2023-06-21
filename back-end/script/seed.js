@@ -4,7 +4,11 @@ import { User } from '../model/User.js';
 
 // --------------------------------------
 
-mongoose.connect('mongodb://localhost:27017/authentication-with-jwt');
 
 await mongoose.connection.dropDatabase();
+
+
+mongoose.connect('mongodb://localhost:27017/authentication-with-jwt');
+
+
 
