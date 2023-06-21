@@ -6,6 +6,7 @@ import Signup from './components/signup';
 import Login from './components/login';
 import Userprofile from './pages/userProfile';
 import Home from './pages/Home';
+import Navbar from './components/navbar';
 
 
 
@@ -13,12 +14,15 @@ function App() {
 
 
   return (
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/user' element={<Userprofile />} />
-      <Route path='/api/signup' element={<Signup />} />
-      <Route path='/api/login' element={<Login />} />
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/user' element={<Userprofile />} />
+        <Route path='/api/signup' element={<Signup />} />
+        <Route path='/api/login' element={<Login />} />
+      </Routes>
+    </>
   )
 }
 

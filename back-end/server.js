@@ -63,11 +63,11 @@ app.post('/api/login', async (req, res) => {
         // wenn Benutzer gefunden wurde, dann wird mit 'verifyPassword' das hinterlegte Password mit dem 
         // im Frontend eingetragenen Password abgeglichen
         const isVerifed = user.verifyPassword(req.body.password);
-        if (isVerifed) {
+        if (!isVerifed) {
             return res.status(401).json({ error: { message: "Email und Password Kombination nicht korrekt" } });
         }
 
-        const token = generateJWT(user);
+        const token = generateAccessToken({ email });
         console.log(token)
         res.cookie("token", token, { httpOnly: true, maxAge: 1000 * 60 * 30 });
         res.status(200).json({ message: "Login erfolgreich" });
@@ -108,7 +108,7 @@ app.post('/api/signup', async (req, res) => {
 
         // wenn Fehler bei der Speicherung auftritt und Benutzer doch bereits existieren sollte
         // --> Weiterleitung zu Login
-        if (error.name === "MongoServerError" && error.code === 11_000) {
+        if (error.name === "MongoServerError" && error.code == 11000) {
             return res.redirect('/login');
         }
         return res.status(500).send({ error: { message: "Unknown Server error" } });
@@ -122,6 +122,13 @@ app.get('/api/verified', (req, res) => {
     res.send(req.user)
 });
 
+
+// --- LOGOUT -----------------------------------------------------
+
+app.post('/api/logout', (req, res) => {
+    res.clearCookie('token');
+    res.sendStatus(200);
+});
 
 // --- ALL OTHER ROUTES -------------------------------------------
 

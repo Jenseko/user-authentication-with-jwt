@@ -19,12 +19,22 @@ const Userprofile = () => {
     }, [])
 
 
+    const LogoutButton = () => {
+        const handleLogout = async () => {
+            try {
+                await axios.post('/api/logout');
+            } catch (error) {
+                console.error(error)
+            }
+        };
+    }
+
     return (
         <>
             <h1>Userprofile</h1>
             {user ? <h1>Welcome {user.name}</h1> : <h1>Welcome</h1>}
             {user.email}
-            <Link to={'/'}>Logout</Link>
+            <button onClick={handleLogout}>Logout</button>
         </>
     );
 }

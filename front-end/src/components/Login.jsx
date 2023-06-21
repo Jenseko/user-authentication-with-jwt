@@ -12,7 +12,7 @@ const Login = () => {
         password: ""
     });
 
-    const loginHandler = async () => {
+    const loginHandler = async (e) => {
         e.preventDefault();
         console.log(user)
         await axios.post('/api/login', user)
@@ -32,7 +32,7 @@ const Login = () => {
                 <input type="email" name="email" id="email" value={user.email} onChange={(e) => { setUser({ ...user, email: e.target.value }) }} />
                 <label htmlFor="password">Password</label>
                 <input type="password" name="password" id="password" value={user.password} onChange={(e) => { setUser({ ...user, password: e.target.value }) }} />
-                <button>Submit</button>
+                <button type="submit">Submit</button>
             </form>
             <Link to={'/api/signup'}>Do you have a valid account? If not, then join this way!</Link>
         </>

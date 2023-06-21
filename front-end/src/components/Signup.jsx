@@ -17,13 +17,13 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(data);
-        await axios.post('/api/signup', data)
-            .then((res) => {
-                console.log(res)
-                navigate('/api/login')
-            }).catch((err) => {
-                console.error(err)
-            })
+        try {
+            await axios.post('/api/signup', data)
+            console.log(res)
+            navigate('/api/login')
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return (
@@ -36,7 +36,7 @@ const Signup = () => {
                 <input type="email" name="email" id="" value={data.email} onChange={(e) => { setData({ ...data, email: e.target.value }) }} />
                 <label htmlFor="password" id="password" >Password</label>
                 <input type="password" name="password" id="password" value={data.password} onChange={(e) => { setData({ ...data, password: e.target.value }) }} />
-                <button>Submit</button>
+                <button onClick={handleSubmit}>Submit</button>
             </form>
             <Link to={'/api/login'}>Are you already a User?</Link>
         </>
